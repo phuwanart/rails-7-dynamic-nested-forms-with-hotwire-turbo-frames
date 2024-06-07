@@ -1,0 +1,38 @@
+<p style="color: green"><%= notice %></p>
+<h1>Cocktails</h1>
+<%= search_form_for(
+    @search,
+    url: cocktails_path,
+    html: { method: :post }
+  ) do |f| %>
+  <%= tag.fieldset do %>
+    <%= tag.legend 'Sorting' %>
+    <%= f.sort_fields do |s| %>
+      <%= render 'sort_fields', f: s %>
+    <% end %>
+    <%= button_to_add_fields(f, :sort) %>
+  <% end %>
+  <%= tag.fieldset do %>
+    <%= tag.legend 'Condition Groups' %>
+    <%= f.condition_fields do |c| %>
+      <%= c.attribute_fields do |a| %>
+        <%= a.attribute_select %>
+      <% end %>
+      <%= c.predicate_select %>
+      <%= c.value_fields do |v| %>
+        <%= v.text_field :value %>
+      <%end %>
+    <%end %>
+    <%= button_to_add_fields(f, :condition) %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+<div id="cocktails">
+  <% @cocktails.each do |cocktail| %>
+    <%= render cocktail %>
+    <p>
+      <%= link_to "Show this cocktail", cocktail %>
+    </p>
+  <% end %>
+</div>
+<%= link_to "New cocktail", new_cocktail_path %>

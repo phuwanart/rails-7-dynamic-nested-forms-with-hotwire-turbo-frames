@@ -1,0 +1,32 @@
+<%= form_with(model: cocktail) do |form| %>
+  <% if cocktail.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(cocktail.errors.count, "error") %> prohibited this cocktail from being saved:</h2>
+      <ul>
+        <% cocktail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :recipe, style: "display: block" %>
+    <%= form.text_area :recipe %>
+  </div>
+  <div>
+    <%= dynamic_fields_for form, :cocktail_ingredients do |ff| %>
+      <%= tag.div do %>
+        <%= ff.select :ingredient_id, Ingredient.all.map { |i| [i.name, i.id] }, include_blank: "Select ingredient" %>
+        <%= ff.text_field :quantity, placeholder: "Qty" %>
+        <%= ff.check_box :_destroy, title: "Check to delete ingredient", data: { action: "dynamic-fields#hide" } %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

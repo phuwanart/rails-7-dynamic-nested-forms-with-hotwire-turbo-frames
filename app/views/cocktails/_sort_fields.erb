@@ -1,0 +1,5 @@
+<%= tag.div "#{f.sort_select} #{button_to_remove_fields}",
+class: :fields,
+data: {controller: "remove-field"},
+'data-object-name': f.object_name,
+escape: false %>

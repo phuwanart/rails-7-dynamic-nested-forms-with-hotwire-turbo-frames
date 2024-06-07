@@ -1,0 +1,9 @@
+<%=
+  fields model: resource_class.new do |f|
+    turbo_stream.append f.field_id(params[:association]) do
+      f.fields_for params[:association], association_class.new, child_index: Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond) do |ff|
+        render fields_partial_path, f: ff
+      end
+    end
+  end
+%>

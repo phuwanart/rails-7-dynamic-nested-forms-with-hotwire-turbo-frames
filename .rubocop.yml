@@ -1,0 +1,21 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-capybara
+  # - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "**/dummy/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "tmp/**/*"
+    - "script/**/*"
+    - "node-server/**/*"
+    - "node_modules/**/*"

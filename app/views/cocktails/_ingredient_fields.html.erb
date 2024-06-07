@@ -1,0 +1,5 @@
+<%= tag.div do %>
+  <%= f.select :ingredient_id, Ingredient.all.map { |i| [i.name, i.id] }, include_blank: "Select ingredient" %>
+  <%= f.text_field :quantity, placeholder: "Qty" %>
+  <%= f.check_box :_destroy, title: "Check to delete ingredient" %>
+<% end %>
