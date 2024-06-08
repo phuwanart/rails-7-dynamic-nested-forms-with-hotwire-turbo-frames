@@ -2,9 +2,11 @@
 <h1>Cocktails</h1>
 <%= search_form_for(
     @search,
-    url: cocktails_path,
+    url: search_cocktails_path,
     html: { method: :post }
   ) do |f| %>
+  <%= f.label :name_cont %>
+  <%= f.search_field 'name_cont' %>
   <%= tag.fieldset do %>
     <%= tag.legend 'Sorting' %>
     <%= f.sort_fields do |s| %>

@@ -8,6 +8,11 @@ class CocktailsController < ApplicationController
     @search = ransack_params
     # @search.sorts = ['name desc', 'recipe'] if @search.sorts.empty?
     # @search.build_condition
+    @cocktails = ransack_result
+  end
+
+  def search
+    @search = ransack_params
     @cocktails  = ransack_result
   end
 
@@ -50,6 +55,36 @@ class CocktailsController < ApplicationController
     end
   end
 
+  def add_fields
+    form_model, *nested_attributes = params[:name].split(/\[|\]/).compact_blank
+    helpers.fields form_model.classify.constantize.new do |form|
+      nested_form_builder_for form, nested_attributes do |f|
+        # NOTE: this block should run only once for the last association
+        #       cocktail[cocktail_ingredients_attributes]
+        #           this ^^^^^^^^^^^^^^^^^^^^        or this vvvvvv
+        #       cocktail[cocktail_ingredients_attributes][0][things_attributes]
+        #
+        #       `f` is the last nested form builder, for example:
+        #
+        #         form_with model: Model.new do |f|
+        #           f.fields_for :one do |ff|
+        #             ff.fields_for :two do |fff|
+        #               yield fff
+        #               #     ^^^
+        #               # NOTE: this is what you should get in this block
+        #             end
+        #           end
+        #         end
+        #
+        render turbo_stream: turbo_stream.append(
+          params[:name].parameterize(separator: '_'),
+          partial: "#{f.object.class.name.underscore}_fields",
+          locals: { f: }
+        )
+      end
+    end
+  end
+
   # PATCH/PUT /cocktails/1 or /cocktails/1.json
   def update
     respond_to do |format|
@@ -82,8 +117,17 @@ class CocktailsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def cocktail_params
-    params.require(:cocktail).permit(:name, :recipe,
-                                     cocktail_ingredients_attributes: %i[id quantity ingredient_id _destroy])
+    params.require(:cocktail).permit(
+      :name,
+      :recipe,
+      cocktail_ingredients_attributes: [
+        :id,
+        :quantity,
+        :ingredient_id,
+        :_destroy,
+        { things_attributes: %i[id name _destroy] }
+      ]
+    )
   end
 
   def ransack_params
@@ -92,5 +136,19 @@ class CocktailsController < ApplicationController
 
   def ransack_result
     @search.result(distinct: true)
+  end
+
+  def nested_form_builder_for f, *nested_attributes, &block
+    attribute, index = nested_attributes.flatten!.shift(2)
+    if attribute.blank?
+      # NOTE: yield the last form builder instance to render the response
+      yield f
+      return
+    end
+    association = attribute.chomp('_attributes')
+    child_index = index || Process.clock_gettime(Process::CLOCK_REALTIME, :millisecond)
+    f.fields_for association, association.classify.constantize.new, child_index: do |ff|
+      nested_form_builder_for(ff, nested_attributes, &block)
+    end
   end
 end

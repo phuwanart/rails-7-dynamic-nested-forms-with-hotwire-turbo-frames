@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   resources :cocktails do
     get :add_ingredient, on: :collection
-    post :index, on: :collection
+    post :add_fields, on: :collection
+    collection do
+      match 'search' => 'cocktails#search', via: %i[get post], as: :search
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
