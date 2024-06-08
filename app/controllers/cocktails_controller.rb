@@ -120,13 +120,7 @@ class CocktailsController < ApplicationController
     params.require(:cocktail).permit(
       :name,
       :recipe,
-      cocktail_ingredients_attributes: [
-        :id,
-        :quantity,
-        :ingredient_id,
-        :_destroy,
-        { things_attributes: %i[id name _destroy] }
-      ]
+      cocktail_ingredients_attributes: {}
     )
   end
 
