@@ -6,7 +6,7 @@ class CocktailsController < ApplicationController
   # GET /cocktails or /cocktails.json
   def index
     @search = ransack_params
-    # @search.sorts = ['name desc', 'recipe'] if @search.sorts.empty?
+    @search.sorts = ['name desc'] if @search.sorts.empty?
     # @search.build_condition
     @cocktails = ransack_result
   end
@@ -125,7 +125,7 @@ class CocktailsController < ApplicationController
   end
 
   def ransack_params
-    Cocktail.ransack(params[:q])
+    Cocktail.ransack({ name_cont: 'xxx' })
   end
 
   def ransack_result

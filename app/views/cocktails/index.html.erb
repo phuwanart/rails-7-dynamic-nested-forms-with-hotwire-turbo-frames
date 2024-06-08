@@ -5,8 +5,6 @@
     url: search_cocktails_path,
     html: { method: :post }
   ) do |f| %>
-  <%= f.label :name_cont %>
-  <%= f.search_field 'name_cont' %>
   <%= tag.fieldset do %>
     <%= tag.legend 'Sorting' %>
     <%= f.sort_fields do |s| %>
@@ -17,13 +15,7 @@
   <%= tag.fieldset do %>
     <%= tag.legend 'Condition Groups' %>
     <%= f.condition_fields do |c| %>
-      <%= c.attribute_fields do |a| %>
-        <%= a.attribute_select %>
-      <% end %>
-      <%= c.predicate_select %>
-      <%= c.value_fields do |v| %>
-        <%= v.text_field :value %>
-      <%end %>
+      <%= render 'condition_fields', f: c %>
     <%end %>
     <%= button_to_add_fields(f, :condition) %>
   <% end %>
