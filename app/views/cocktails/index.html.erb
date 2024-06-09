@@ -3,7 +3,8 @@
 <%= search_form_for(
     @search,
     url: search_cocktails_path,
-    html: { method: :post }
+    html: { method: :post },
+    data: { turbo_frame: :cocktails }
   ) do |f| %>
   <%= tag.fieldset do %>
     <%= tag.legend 'Sorting' %>
@@ -21,12 +22,12 @@
   <% end %>
   <%= f.submit %>
 <% end %>
-<div id="cocktails">
+<%= turbo_frame_tag :cocktails do %>
   <% @cocktails.each do |cocktail| %>
     <%= render cocktail %>
     <p>
       <%= link_to "Show this cocktail", cocktail %>
     </p>
   <% end %>
-</div>
+<% end %>
 <%= link_to "New cocktail", new_cocktail_path %>

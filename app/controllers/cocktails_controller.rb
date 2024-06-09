@@ -125,7 +125,7 @@ class CocktailsController < ApplicationController
   end
 
   def ransack_params
-    Cocktail.ransack({ name_cont: 'xxx' })
+    Cocktail.ransack(params[:q])
   end
 
   def ransack_result
