@@ -6,8 +6,6 @@ class CocktailsController < ApplicationController
   # GET /cocktails or /cocktails.json
   def index
     @search = ransack_params
-    @search.sorts = ['name desc'] if @search.sorts.empty?
-    # @search.build_condition
     @cocktails = ransack_result
   end
 

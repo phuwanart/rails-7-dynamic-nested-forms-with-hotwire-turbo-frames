@@ -1,4 +1,29 @@
 <%= turbo_frame_tag :cocktails do %>
+  <%= search_form_for(
+    @search,
+    url: search_cocktails_path,
+    html: { method: :post },
+    data: { turbo_frame: :cocktails }
+  ) do |f| %>
+    <%= tag.fieldset do %>
+      <%= tag.legend 'Sorting' %>
+      <%= f.sort_fields do |s| %>
+        <%= render 'sort_fields', f: s %>
+      <% end %>
+      <%= button_to_add_fields(f, :sort) %>
+    <% end %>
+    <%= tag.fieldset do %>
+      <%= tag.legend 'Conditions' %>
+      <%= f.condition_fields do |c| %>
+        <%= render 'condition_fields', f: c %>
+      <%end %>
+      <%= button_to_add_fields(f, :condition) %>
+    <% end %>
+    <%= tag.fieldset do %>
+      <%= tag.legend 'Actions' %>
+      <%= f.submit %>
+    <% end %>
+  <% end %>
   <% @cocktails.each do |cocktail| %>
     <%= render cocktail %>
     <p>
