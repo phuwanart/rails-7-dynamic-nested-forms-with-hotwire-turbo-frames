@@ -79,4 +79,8 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'avo', '>= 3.2'
 gem 'ransack', '~> 4.1'
+
+gem "rails_admin", "~> 3.0.beta2"
+gem "sassc-rails"

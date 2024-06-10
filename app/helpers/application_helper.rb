@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def button_to_remove_fields
-    button_tag('Remove', data: { action: 'remove-field#remove' })
+    button_tag('Remove', data: { action: 'ransack#remove' })
   end
 
   def button_label

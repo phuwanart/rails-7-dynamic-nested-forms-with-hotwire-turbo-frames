@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount Avo::Engine, at: Avo.configuration.root_path
   # NOTE: I'm not using `:id` for anything, but just in case you need it.
   post '/fields/:model(/:id)/build/:association(/:partial)', to: 'fields#build', as: :build_fields
 

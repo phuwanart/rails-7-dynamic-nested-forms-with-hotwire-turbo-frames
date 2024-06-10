@@ -1,7 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="remove-field"
+// Connects to data-controller="ransack"
 export default class extends Controller {
+  connect() {
+  }
 
   remove(event) {
     event.preventDefault();
