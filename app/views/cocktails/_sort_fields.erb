@@ -1,4 +1,4 @@
-<%= tag.div "#{f.sort_select} #{button_to_remove_fields}",
+<%= tag.div "#{f.sort_select associations: [:ingredients]} #{button_to_remove_fields}",
 class: :fields,
 'data-object-name': f.object_name,
 escape: false %>
