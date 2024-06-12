@@ -3,7 +3,7 @@
     @search,
     url: search_cocktails_path,
     html: { method: :post },
-    data: { turbo_frame: :cocktails }
+    data: { turbo_frame: :cocktails, controller: 'ransack' }
   ) do |f| %>
     <%= tag.fieldset do %>
       <%= tag.legend 'Sorting' %>

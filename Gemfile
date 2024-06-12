@@ -84,3 +84,5 @@ gem 'ransack', '~> 4.1'
 
 gem "rails_admin", "~> 3.0.beta2"
 gem "sassc-rails"
+
+gem "motor-admin", "~> 0.4.27"

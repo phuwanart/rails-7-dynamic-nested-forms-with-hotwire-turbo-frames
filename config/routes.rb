@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount Motor::Admin => '/motor_admin'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Avo::Engine, at: Avo.configuration.root_path
   # NOTE: I'm not using `:id` for anything, but just in case you need it.

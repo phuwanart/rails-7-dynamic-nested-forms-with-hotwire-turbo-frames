@@ -12,4 +12,8 @@ class Cocktail < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     ransortable_attributes + _ransackers.keys
   end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[cocktail_ingredients ingredients]
+  end
 end

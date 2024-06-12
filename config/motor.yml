@@ -1,0 +1,43 @@
+---
+engine_version: 0.4.27
+file_version: 2024-06-11 03:32:14.268570000 +07:00
+resources:
+- name: cocktail
+  preferences: {}
+  updated_at: 2024-06-11 03:26:31.394320000 +00:00
+- name: cocktail_ingredient
+  preferences:
+    visible: false
+  updated_at: 2024-06-11 03:27:18.144768000 +00:00
+- name: ingredient
+  preferences:
+    visible: false
+  updated_at: 2024-06-11 03:27:20.674610000 +00:00
+- name: thing
+  preferences:
+    visible: false
+  updated_at: 2024-06-11 03:27:22.344959000 +00:00
+configs:
+- key: header.links
+  value:
+  - name: Reports
+    link_type: reports
+  - name: Forms
+    link_type: forms
+  updated_at: 2024-06-11 03:32:14.268570000 +00:00
+- key: resources.cocktail.associations.order
+  value:
+  - ingredients
+  - cocktail_ingredients
+  updated_at: 2024-06-11 03:26:44.690804000 +00:00
+queries: []
+dashboards: []
+forms: []
+alerts: []
+api_configs:
+- id: 1
+  name: origin
+  url: "/"
+  preferences: {}
+  description:
+  updated_at: 2024-06-11 03:22:37.999687000 +00:00

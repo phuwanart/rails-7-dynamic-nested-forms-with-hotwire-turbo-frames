@@ -1,4 +1,4 @@
-<%= tag.span f.attribute_select,
+<%= tag.span f.attribute_select associations: [:ingredients],
   class: :fields,
   'data-object-name': f.object_name,
   escape: false %>
